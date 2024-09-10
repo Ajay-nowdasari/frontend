@@ -25,13 +25,15 @@
 // export default App;
 import React from 'react';
 import HelloWorld from './components/HelloWorld';
-import UserForm from './components/UserForm';
+// import UserForm from './components/UserForm';
 import RegisterForm from './components/Register';
 import LoginForm from './components/Login';
 import Dashboard from './components/Dashboard';
+import AdminLoginPage from './components/adminloginform';
+import UserForm from './components/Student';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter , Routes , Route } from 'react-router-dom';
+import { BrowserRouter as Router , Routes , Route } from 'react-router-dom';
 function App() {
   return (
     <div>
@@ -39,13 +41,19 @@ function App() {
       {/* <UserForm/> */}
       {/* <RegisterForm/> */}
       {/* {<LoginForm/>} */}
-      <BrowserRouter>
+      {/* <Router>
         <Routes>
             <Route path='/' element={<RegisterForm/>}/>
             <Route path='/LoginForm' element={<LoginForm/>}/>
             <Route path='/Dashboard' element={<Dashboard/>}/>
         </Routes>
-      </BrowserRouter>
+      </Router> */}
+      <Router>
+          <Routes>
+            <Route path="/" element={ <AdminLoginPage/>} />
+            <Route path="/data" element={<UserForm/>}/>
+          </Routes>
+        </Router>
     </div>
   );
 }
