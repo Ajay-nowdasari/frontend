@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchStudents} from './api';
+import { fetchStudents} from '../api';
 
 const UserForm = () => {
 
