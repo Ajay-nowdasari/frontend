@@ -17,8 +17,6 @@ export const fetchStudents = async () => {
     }
 };
 
-
-
 const API_URL = "http://127.0.0.1:8000/api/";
 
 export const fetchProducts = async () => {
@@ -35,6 +33,7 @@ export const fetchProducts = async () => {
     return [];
   }
 };
+
 export const createProduct = (product) =>
   fetch(API_URL + "Products/", {
     method: "POST",

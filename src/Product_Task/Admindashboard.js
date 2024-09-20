@@ -5,15 +5,12 @@ import Modal from "react-bootstrap/Modal";
 import { fetchProducts, createProduct,updateProduct,deleteProduct } from "../api";
 
 const Admin = () => {
-  
+
   const [showP, setShowP] = useState(false);
-
   const [data, setData] = useState([]);
-
   const [product,setProduct]=useState('')
   const [quality, setquality] = useState(null);
   const [quantity, setquentity] = useState(null);
-
   const [edit,setedit]=useState(null)
  
 
@@ -42,7 +39,6 @@ const Admin = () => {
     setquentity(data[index].quantity);
     setShowP(true)
     setedit(id)
-
   }
 
   
@@ -52,15 +48,11 @@ const Admin = () => {
       });
     };
 
-  const handleShowP = () => {
-    setShowP(true);
-  };
-
   return (
     <>
       <br />
       <p align="right" className="container">
-        <Button variant="primary" onClick={() => handleShowP()}>
+        <Button variant="primary" onClick={() => setShowP(true)}>
           Add Product
         </Button>
       </p>
@@ -124,6 +116,14 @@ const Admin = () => {
               </table>
               <br />
               <Modal.Footer style={{ backgroundColor: "black" }}>
+              <Button
+                  variant="danger"
+                  onClick={() => {
+                    setShowP(false);
+                  }}
+                >
+                  close
+                </Button>
                 <Button
                   type="submit"
                   variant="primary"

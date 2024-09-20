@@ -17,12 +17,10 @@ function VerifyOTP() {
       navigate("/login");
       return;
     }
-
     const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-
     return () => clearTimeout(timer);
   }, [timeLeft, navigate]);
-
+  
   const handlesubmit = async (e) => {
     e.preventDefault();
 
