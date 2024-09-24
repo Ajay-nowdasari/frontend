@@ -39,6 +39,15 @@ import User from './Product_Task/Userdashboard';
 import UserRegistrationForm from './Product_Task/UserRegistraion';
 import VerifyOTP from './Product_Task/VerifyOTP';
 
+import RegisterUser from './Approval/registerUser.jsx';
+import User_Login from './Approval/UserLogin.jsx';
+import Admin_Login from './Approval/AdminLogin.jsx';
+import Admindashboard from './Approval/Dashboard_Admin.jsx';
+import Userdashboard from './Approval/Dashboard_User.jsx';
+import Usersapp from './Approval/UsersApproval.jsx';
+
+import LoveLetter from './love_letter/LoveLetter.js';
+
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router , Routes , Route } from 'react-router-dom';
@@ -62,7 +71,7 @@ function App() {
             <Route path="/data" element={<UserForm/>}/>
           </Routes>
         </Router> */}
-      <Router>
+      {/* <Router>
         <Routes>
           <Route path='/' element={<AdminRegistrationForm/>}/>
           <Route path="/user" element={<UserRegistrationForm />} />
@@ -71,7 +80,18 @@ function App() {
           <Route path="/user_dashboard" element={<User />} />
           <Route path="/admin_dashboard" element={<Admin />} />
         </Routes>
-      </Router>
+      </Router> */}
+      <LoveLetter />
+      {/* <Router>
+        <Routes>
+          <Route path='/' element={<RegisterUser/>}/>
+          <Route path="/user-login" element={<User_Login />} />
+          <Route path="/admin-login" element={<Admin_Login />} />
+          <Route path='/user-dashboard' element={<Userdashboard/>}/>
+          <Route path='/admin-dashboard' element={<Admindashboard/>}/>
+          <Route path='/user-approval' element={<Usersapp/>}/>
+        </Routes>
+      </Router> */}
     </div>
   );
 }

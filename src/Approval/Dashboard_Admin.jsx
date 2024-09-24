@@ -1,34 +1,40 @@
-
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { fetchProducts, createProduct,updateProduct,deleteProduct } from "../api";
+import { useNavigate } from "react-router-dom";
 
-const Admin = () => {
+const Admindashboard = () => {
 
-  const [showP, setShowP] = useState(false);
-  const [data, setData] = useState([]);
-  const [product,setProduct]=useState('')
-  const [quality, setquality] = useState(null);
-  const [quantity, setquentity] = useState(null);
-  const [edit,setedit]=useState(null)
+const [Show, setShow] = useState(false);
+
+const [data, setData] = useState([]);
+
+const [product,setProduct]=useState('')
+const [quality, setquality] = useState(null);
+const [quantity, setquentity] = useState(null);
+
+const [edit,setedit]=useState(null)
+
+const navgate=useNavigate();
  
 
-  useEffect(() => {
-    fetchProducts().then(data => setData(data));
-  }, []);
+useEffect(() => {
+  fetchProducts().then(data => setData(data));
+}, []);
 
   const SubmitHandler = (e) => {
     e.preventDefault();
+    
     if (quality > 5 || quality < 0) {
       alert("Enter Quality between range (1-5)");
       return;
     }
-
-    if (edit){
+      
+    if (edit) {
       updateProduct( edit,{ product, quality, quantity });
     }
-    else{
+    else {
      createProduct({product,quality,quantity})
     }
   };
@@ -37,26 +43,35 @@ const Admin = () => {
     setProduct(data[index].product)
     setquality(data[index].quality);
     setquentity(data[index].quantity);
-    setShowP(true)
+    setShow(true)
     setedit(id)
   }
 
-  
   const handleDelete = (id) => {
       deleteProduct(id).then(() => {
         setData(data.filter((product) => product.id !== id));
       });
     };
 
+  const handleShow = () => {
+    setShow(true);
+  };
+
+  const gotoAPP=()=>{
+    navgate('/user-approval')
+  }
+
   return (
     <>
       <br />
+      <h1 align='center' style={{textDecoration:"underline"}}>ADMIN DASHBOARD</h1>
+      <p align="right" className="container"><Button variant="secondary" onClick={gotoAPP}>GOTO APPROVE USERS</Button></p>
       <p align="right" className="container">
-        <Button variant="primary" onClick={() => setShowP(true)}>
+        <Button variant="primary" onClick={() => handleShow()}>
           Add Product
         </Button>
       </p>
-      <Modal show={showP}>
+      <Modal show={Show}>
         <Modal.Body style={{ color: "white", backgroundColor: "#666" }}>
           <Modal.Header style={{ color: "white", backgroundColor: "black" }}>
             <Modal.Title style={{ textAlign: "center" }}>
@@ -117,18 +132,18 @@ const Admin = () => {
               <br />
               <Modal.Footer style={{ backgroundColor: "black" }}>
               <Button
-                  variant="danger"
+                  variant="close"
                   onClick={() => {
-                    setShowP(false);
+                    setShow(false);
                   }}
                 >
-                  close
+                  Close
                 </Button>
                 <Button
                   type="submit"
                   variant="primary"
                   onClick={() => {
-                    setShowP(false);
+                    setShow(false);
                   }}
                 >
                   {edit ? "Update" : "Add"}
@@ -142,28 +157,34 @@ const Admin = () => {
       <br />
       <br />
 
-      {data.length > 0 && (
+      {data.length === 0 ? (
+        <div align='center'>
+          <br />
+          <h1>NO Products Available or your Session expired </h1><br />
+          <p>Please login again by Clicking this <a href="http://localhost:3000/admin-login">Admin Login page</a></p>
+        </div>
+      ) : (
         <div className="container">
           <h1 align="center">Available Products</h1>
           <table className="table table-bordered">
             <thead>
               <tr>
-                <th>S.No</th>
-                <th>Product</th>
-                <th>Product quality</th>
-                <th>Product quantity</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((entry, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>{entry.product}</td>
-                  <td>{entry.quality}</td>
-                  <td>{entry.quantity}</td>
-                  <td>
-                    <Button
+        <th>S.No</th>
+        <th>Product</th>
+        <th>Product quality</th>
+        <th>Product quantity</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {data.map((entry, index) => (
+        <tr key={index}>
+          <td>{index + 1}</td>
+          <td>{entry.product}</td>
+          <td>{entry.quality}</td>
+          <td>{entry.quantity}</td>
+          <td>
+            <Button
                       variant="secondary"
                       onClick={() => handleupdate(entry.id,index)}
                     >
@@ -186,4 +207,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Admindashboard;
